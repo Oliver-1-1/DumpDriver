@@ -6,12 +6,14 @@
 #define DEBUG_LOG
 #define DEBUG_FILE
 
-NTSTATUS WriteLog(
+NTSTATUS
+WriteLog(
 	__in PCHAR buffer,
 	__in ...
 );
 
-NTSTATUS WriteDebug(
+NTSTATUS
+WriteDebug(
 	__in PCHAR buffer
 );
 
@@ -27,6 +29,7 @@ WriteFile(
 	__in PCHAR buffer
 );
 
-NTSTATUS CloseFile(
+NTSTATUS
+CloseFile(
 	__in HANDLE handle
 );
