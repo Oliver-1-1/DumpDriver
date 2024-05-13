@@ -1,6 +1,7 @@
 #include "file_log.hpp"
 
-NTSTATUS WriteLog(
+NTSTATUS
+WriteLog(
     __in PCHAR string,
     __in ...
 )
@@ -56,7 +57,8 @@ NTSTATUS WriteLog(
 
 }
 
-NTSTATUS WriteDebug(
+NTSTATUS
+WriteDebug(
     __in PCHAR buffer
 ) 
 {
