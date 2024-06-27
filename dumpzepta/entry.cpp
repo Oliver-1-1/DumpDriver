@@ -136,19 +136,30 @@ IsDriverActive(
 	PRTL_PROCESS_MODULES list;
 	NTSTATUS status;
 
-	ZwQuerySystemInformation((SYSTEM_INFORMATION_CLASS)SystemModuleInformation, 0, 0, &length);
+	ZwQuerySystemInformation(
+		(SYSTEM_INFORMATION_CLASS)SystemModuleInformation,
+		0,
+		0,
+		&length);
 	length += (10 * 1024);
 
-	list = (PRTL_PROCESS_MODULES)ExAllocatePool((POOL_TYPE)(POOL_COLD_ALLOCATION | PagedPool), length);
+	list = (PRTL_PROCESS_MODULES)ExAllocatePool(
+		(POOL_TYPE)(POOL_COLD_ALLOCATION | PagedPool),
+		length);
 
 	if (list == NULL)
 	{
 		return FALSE;
 	}
 
-	status = ZwQuerySystemInformation((SYSTEM_INFORMATION_CLASS)SystemModuleInformation, list, length, &length);
+	status = ZwQuerySystemInformation(
+		(SYSTEM_INFORMATION_CLASS)SystemModuleInformation,
+		list,
+		length,
+		&length);
 
-	if (status != STATUS_SUCCESS) {
+	if (status != STATUS_SUCCESS) 
+	{
 		ExFreePool(list);
 		return FALSE;
 	}
