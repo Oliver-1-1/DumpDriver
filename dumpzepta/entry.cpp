@@ -69,8 +69,8 @@ DriverEntry(
 	PrintCurrentDriver(Filter);
 
 	//
-	// Setup the drivers callback. This is probably not needed. But i dont want the system trying to access a NULL pointer.
-	// If you look at dumpfve.sys they use DriverEntry arguments very weirdly. This is because its actually another struct that is used: PFILTER_INITIALIZATION_DATA. ( look at buttom for example)
+	// Setup the driver's callback. This is probably not needed. But i don't want the system trying to access a NULL pointer.
+	// If you look at dumpfve.sys they use DriverEntry arguments very weirdly. This is because it is actually another struct that is used: PFILTER_INITIALIZATION_DATA. ( look at buttom for example)
 	//
 
 	Data->MajorVersion = DUMP_FILTER_MAJOR_VERSION;
@@ -83,13 +83,11 @@ DriverEntry(
 	Data->DumpRead = read;
 	
 	//
-	// Do you shady stuff here:
+	// Do your stuff here:
 	//
-
-
-
+	
 	//
-	// Clear traces, this will also make sure out driver does only load once. There are more traces like with normal drivers. 
+	// Clear traces, this will also make sure our driver does only load once. There are more traces like with normal drivers. 
 	//
 	status = RtlWriteRegistryValue(
 		RTL_REGISTRY_CONTROL,
@@ -141,6 +139,7 @@ IsDriverActive(
 		0,
 		0,
 		&length);
+	
 	length += (10 * 1024);
 
 	list = (PRTL_PROCESS_MODULES)ExAllocatePool(
@@ -185,8 +184,7 @@ IsDriverActive(
 	}
 
 	ExFreePool(list);
-
-
+	
 	return FALSE;
 }
 
@@ -199,7 +197,8 @@ IsProhibitedDriverLoaded(
 {
 	BOOL loaded = FALSE;
 
-	for (int i = 0; i < ARRAYSIZE(blacklist); i++) {
+	for (int i = 0; i < ARRAYSIZE(blacklist); i++) 
+	{
 		loaded |= IsDriverActive(blacklist[i]);
 	}
 
@@ -208,7 +207,7 @@ IsProhibitedDriverLoaded(
 }
 
 //
-// Get what filter type in string value.
+// Get what filter type in a string value.
 //
 PCHAR
 GetFilterType(
@@ -237,7 +236,7 @@ GetFilterType(
 }
 
 //
-// Print the drivers name that hold the dump volume object.
+// Print the driver's name that holds the dump volume object.
 //
 VOID
 PrintCurrentDriver(
